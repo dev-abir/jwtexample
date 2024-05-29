@@ -1,4 +1,4 @@
-# Why?
+## Why?
 
 This is yet-another-spring-boot-jwt-tutorial. It has 2 main motives:
 
@@ -12,13 +12,13 @@ This is yet-another-spring-boot-jwt-tutorial. It has 2 main motives:
 
 Let's start...
 
-# How?
+## How?
 
 This is not at all a beginner's guide, and I would assume the reader knows the basics of spring, IOC container, gradle, spring
 data JPA, how to build basic CRUD in spring boot.
 As a starting point, you may follow [this guide](https://spring.io/guides/gs/rest-service).
 
-## Initialize
+### Initialize
 
 This is a simple CRUD application with just 3 routes: `/register`, `/login` and `/profile` (protected route). I hope
 this is pretty much self-explanatory. We will be using the [H2 database](https://www.h2database.com/html/main.html), which is an in-memory database. It is easy to deal with during development, **but not ideal for production.** There's also an inbuilt web UI for H2 database.
@@ -55,7 +55,7 @@ and [here](https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-st
 
 ![Spring initializr](imgs/1_spring_initializr.png)
 
-## Model
+### Model
 
 We will first create our model, then controller, then service, in the meantime, we will also learn about the required
 things as we go along...
@@ -180,7 +180,7 @@ things as we go along...
 
 This is all about the models, now let's set up the repository for interacting with the database.
 
-## JPA Repository
+### JPA Repository
 
 Create a package called `repository`, then inside that create `UserRepository.java`:
 
@@ -194,7 +194,7 @@ public interface UserRepository extends JpaRepository<UserDao, String> {
 }
 ```
 
-## Controller
+### Controller
 
 We have only one controller. Create a package `controller`, inside that a file `AuthController.java`:
 
@@ -271,7 +271,7 @@ public class AuthController {
   user's data, which we are simply accessing."_ Keep this part in mind, we will again use these when setting up security
   configs.
 
-## Service
+### Service
 
 1. Create a package called `service`.
 2. Create `UserService.java`:
@@ -448,7 +448,7 @@ public class AuthController {
       This will authenticate and save the user data into Spring's context.
 
 
-## Config
+### Config
 
 1. Create a package called `config`.
 2. Create `AppConfig.java`:
@@ -633,7 +633,7 @@ public class AuthController {
      - `httpSecurity.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);` we arte adding and extracting the JWT token, before Spring's Auth filter.
 
 
-## Properties
+### Properties
 
 Okay, this is the last file:
 `application.properties` within resources folder:
@@ -661,7 +661,7 @@ spring.output.ansi.enabled=ALWAYS
 - `server.error` properties are used to conceal some confidential info. while presenting user with an error response. **This is still not full proof and may leak info in validation errors, or sql errors.**
 - We are using the [H2 database](https://www.h2database.com/html/main.html), which is an in-memory database. It is easy to deal with during development, **but not ideal for production.** There's also an inbuilt web UI for H2 database.
 
-# Demo
+## Demo
 
 - Run the application in your IDE, or in terminal run `./gradlew bootRun` (gradle), `./mvnw spring-boot:run` (maven).
 - Go to: http://localhost:8080/swagger-ui.html
@@ -686,12 +686,8 @@ spring.output.ansi.enabled=ALWAYS
 
 ![H2 sql query](imgs/9_h2_sql_query.png)
 
-If you have any issue following, here's the source code repo link.
+If you have any issue following, here's the [source code repo](https://github.com/dev-abir/jwtexample).
 
 Thanks a lot for reading.\
 Stay safe,\
 Have a nice day.
-
-
-
-
