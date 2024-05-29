@@ -11,14 +11,16 @@ Let's start...
 
 ## How?
 
-This is not at all a beginner's guide, and I would assume the reader knows the **basics of spring**, IOC container, gradle, spring data JPA, how to build basic CRUD in spring boot.\
+This is not at all a beginner's guide, and I would assume the reader knows the **basics of spring**, IOC container, gradle, spring data JPA, how to build basic CRUD in spring boot.
+
 As a starting point, you may follow [this guide](https://spring.io/guides/gs/rest-service).
 
 ### Initialize
 
 This is a simple CRUD application with just **3 routes**: `/register`, `/login` and `/profile` (protected route). I hope this is pretty much self-explanatory. We will be using the **[H2 database](https://www.h2database.com/html/main.html)**, which is an in-memory database. It is easy to deal with during development, **but not ideal for production.** There's also an inbuilt web UI for H2 database.
 
-Go to [Spring boot initializr](https://start.spring.io/).\
+Go to [Spring boot initializr](https://start.spring.io/).
+
 You will need the following dependencies:
 
 ```groovy
@@ -254,15 +256,14 @@ public class AuthController {
 - This controller will give us a high-level overview of the API we are going to create.
 - `@Valid` annotation will validate the Bean with the constraints like `@NotBlank`, defined earlier, and throw an appropriate error. Spring's default exception handler [ProblemDetailsExceptionHandler](https://github.com/spring-projects/spring-boot/blob/main/spring-boot-project/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/web/servlet/ProblemDetailsExceptionHandler.java), will respond with an appropriate JSON.
 - `@Operation(security = {@SecurityRequirement(name = "bearer-key")})` annotation is specific to springdoc, we will come to it at last. Just remember that it helps us to identify which routes require authentication in the generated docs.
-- ```java
-  Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-  UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-  final String email = userDetails.getUsername();
-  ```
-  In English, this approximately translates to: _"If the user is authenticated, Spring should already have the
-  authenticated
-  user's data, which we are simply accessing."_ Keep this part in mind, we will again use these when setting up security
-  configs.
+- In English, this roughly translates to: _"If the user is authenticated, Spring should already have the authenticated user's data, which we are simply accessing."_:
+    ```java
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+    final String email = userDetails.getUsername();
+    ```
+    Keep this part in mind, we will again use these when setting up security configs.
+  
 
 ### Service
 
@@ -637,7 +638,8 @@ public class AuthController {
 
 ### Properties
 
-Finally, this is the last file.\
+Finally, this is the last file.
+
 Create `application.properties` within resources folder:
 
 ```properties
@@ -660,7 +662,7 @@ security.jwt.expiration-time=3600000
 spring.output.ansi.enabled=ALWAYS
 ```
 
-- The `security.jwt.secret-key` needs to be of **32 chars** (`HMAC256` requires 256-bit key (32 \* 8 = 256 bits)).
+- The `security.jwt.secret-key` needs to be of **32 chars** (`HMAC256` requires 256-bit key (32 * 8 = 256 bits)).
 - The `spring.output.ansi.enabled=ALWAYS` always gives a colored output :).
 - `server.error` properties are used to conceal some confidential info. while presenting user with an error response. **This is still not full proof and may leak info in validation errors, or sql errors.**
 - We are using the [H2 database](https://www.h2database.com/html/main.html), which is an in-memory database. It is easy to deal with during development, **but not ideal for production.** There's also an inbuilt web UI for H2 database.
@@ -692,6 +694,8 @@ spring.output.ansi.enabled=ALWAYS
 
 If you have any issue following, here's the [source code repo](https://github.com/dev-abir/jwtexample).
 
-Thanks a lot for reading.\
-Stay safe,\
+Thanks a lot for reading
+
+Stay safe,
+
 Have a nice day.
